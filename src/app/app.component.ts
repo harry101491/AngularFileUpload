@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ["name", "email", "phone", "company"];
   dataSource = new UserDataSource(this._userService);
+  
   constructor(private _userService: UserService) {
     this.dataSource.getUserFromAPI();
   }
@@ -43,7 +44,6 @@ export class UserDataSource extends DataSource<User> {
   }
   
   connect(): Observable<User[]> {
-    // return this.userSubject.asObservable();
     return Observable.combineLatest(this.userSubject, this.pageChangeSubject).map((result) => {
       return this.getPageData(result[0], result[1]);
     });
@@ -54,7 +54,9 @@ export class UserDataSource extends DataSource<User> {
   }
 
   getUserFromAPI() {
+    console.log("Inside the getUserFromAPI");
     this._userService.getUsers().subscribe((data) => {
+      console.log("the value of the data is: "+ JSON.stringify(data));
       this.userSubject.next(data);
     });
   }

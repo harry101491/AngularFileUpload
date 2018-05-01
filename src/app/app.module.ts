@@ -15,7 +15,7 @@ import {
 import { HttpClientModule } from "@angular/common/http";  
 import { UserService } from './user.service';
 
-import { UploadModule } from "./upload/upload.module";
+// import { UploadModule } from "./upload/upload.module";
 
 @NgModule({
   declarations: [
@@ -29,8 +29,7 @@ import { UploadModule } from "./upload/upload.module";
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatTableModule,
-    UploadModule
+    MatTableModule
   ],
   providers: [
     UserService
