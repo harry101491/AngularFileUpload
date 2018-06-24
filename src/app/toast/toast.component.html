@@ -1,0 +1,17 @@
+<!-- <p [ngClass]="{ 'text-color-error': , '': }">
+  Toast Works as a View Child!
+</p> -->
+<!-- <div >
+  <span>{{ message | async }}</span>
+  <i class="close-icon" (click)="closeErrorBlock()"></i>
+</div> -->
+
+<div [ngClass]="{'error-toast': (type | async) == 'ERROR_TOAST', 'sucess-toast': (type | async) == 'SUCCESS_TOAST' }">
+  <div *ngIf="(type | async) == 'SUCCESS_TOAST'" class="progress">
+    <div class="progress-bar" role="progressbar"></div>
+  </div>
+  <span class="toast-content">
+    {{ message | async }}
+  </span>
+  <span class="close-icon" (click)="onCloseClick()"></span>
+</div>

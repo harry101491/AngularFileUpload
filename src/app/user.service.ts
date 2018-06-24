@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/observable/of";
+import "rxjs/add/operator/catch";
 
 
 export interface IUser {
@@ -21,6 +22,7 @@ export class User implements IUser {
     email: string;
     phone: string;
     company: any;
+
     constructor(name: string, email: string, phone: string, company: any) {
         this.email = email;
         this.name = name;
@@ -34,14 +36,11 @@ export class UserService {
 
     private userURL = "https://jsonplaceholder.typicode.com/users";
 
-    constructor(private _httpClient: HttpClient) {
-
-    }
+    constructor(private _httpClient: HttpClient) {}
 
     getUsers(): Observable<User[]> {
         console.log("Inside the get users function");
         return this._httpClient.get(this.userURL).map((res) => {
-           console.dir(res);
            return res;
         })
         .switchMap((result: Array<any>) => {
@@ -51,6 +50,10 @@ export class UserService {
                 users.push(newUser);
             });
             return Observable.of(users);
+        })
+        .catch((err) => {
+            console.log("error has occured");
+            return Observable.throw([]);
         });
 
     }

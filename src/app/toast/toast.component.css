@@ -1,0 +1,91 @@
+.error-toast {
+  height: 9vh;
+  width: 45vw;
+  background-color: #fe5e3c;
+  border-radius: 3px;
+  position: absolute;
+  right: 0;
+  top: 0.5vh;
+  margin-right: 0.3em;
+  padding-top: 0.9em;
+  padding-left: 1.7em;
+  visibility: visible;
+  opacity: 1;
+  font-weight: 200;
+  box-shadow: 0.5px 0.5px 0.5px black;
+  transition: visibility 0.5s linear;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.sucess-toast {
+  position: relative;
+  height: 65px;
+  min-width: 180px;
+  width: 300px;
+  padding-left: 20px;
+  padding-top: 12px;
+  font-size: 16px;
+  background-color: #32DB64;
+  border-radius: 3px;
+  position: absolute;
+  right: 0;
+  top: 0.3em;
+  opacity: 1;
+  margin-right: 0.3em;
+  box-shadow: 2px 2px 2px #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: toast 0.7s ease-in-out 1;
+}
+
+.progress-bar {
+  background-color: #69F3AB;
+  animation: progress 3.5s ease-in-out;
+}
+
+.toast-content {
+  text-align: justify;
+  position: absolute;
+  font-weight: 200;
+  width: 70%;
+}
+
+.progress {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 7px;
+  background: transparent;
+  border-radius: 2px;
+  margin-bottom: 0px;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes toast {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toast {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

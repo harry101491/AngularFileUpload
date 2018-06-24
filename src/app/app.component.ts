@@ -1,70 +1,52 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-
-import { UserService, User } from "./user.service";
-
-import { Observable } from "rxjs/Observable";
-import { MatPaginator, MatSort, PageEvent } from "@angular/material";
-
-import { DataSource, CollectionViewer } from "@angular/cdk/collections";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-import "rxjs/add/observable/of";
-import "rxjs/add/observable/combineLatest";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+  ElementRef,
+  OnChanges,
+  Input
+} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
-
-  displayedColumns = ["name", "email", "phone", "company"];
-  dataSource = new UserDataSource(this._userService);
-  
-  constructor(private _userService: UserService) {
-    this.dataSource.getUserFromAPI();
+export class AppComponent implements
+OnInit,
+AfterViewInit,
+OnDestroy,
+OnChanges {
+  @Input('name') elementName: string;
+  @ViewChild('pElement') pElement: ElementRef;
+  constructor()
+  {
+    console.log("Inside the constructor method");
   }
 
   ngOnInit() {
+    console.log("Inside the ngOnInit method");
   }
 
   ngAfterViewInit() {
-
+    console.log("Inside the ngAfterViewInit method");
   }
 
-}
-
-export class UserDataSource extends DataSource<User> {
-
-  userSubject = new BehaviorSubject<User[]>([]);
-  pageChangeSubject = new BehaviorSubject<PageEvent>({ pageIndex: 0, pageSize: 5, length: 0 });
-
-  constructor(private _userService: UserService) {
-    super();
-  }
-  
-  connect(): Observable<User[]> {
-    return Observable.combineLatest(this.userSubject, this.pageChangeSubject).map((result) => {
-      return this.getPageData(result[0], result[1]);
-    });
-  }
-  
-  disconnect() {
-
+  ngOnDestroy() {
+    console.log("Inside the ngOnDestroy Method");
   }
 
-  getUserFromAPI() {
-    console.log("Inside the getUserFromAPI");
-    this._userService.getUsers().subscribe((data) => {
-      console.log("the value of the data is: "+ JSON.stringify(data));
-      this.userSubject.next(data);
-    });
+  ngOnChanges() {
+    console.log("Inside the ngOnChanges Method");
   }
 
-  private getPageData(users: User[], pageEvent: PageEvent): User[] {
-    const startIndex = pageEvent.pageIndex * pageEvent.pageSize;
-    console.log("Inside the getPageData"+ startIndex);
-    return users.slice().splice(startIndex, pageEvent.pageSize);
+  onElementClick(elementRef: HTMLParagraphElement) {
+    console.log(this.pElement.nativeElement);
+  }
+
+  externalEventFunction() {
+    console.log("Event has happened");
   }
 }
-
